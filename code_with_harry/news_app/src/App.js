@@ -11,7 +11,6 @@ export default class App extends Component {
       <div>
 
         <NavBar/>
-        welcome first class based component {this.name}
 
         <News/>
         

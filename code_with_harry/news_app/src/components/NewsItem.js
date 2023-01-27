@@ -13,7 +13,8 @@ export class NewsItem extends Component {
             <div className="card-body">
                 <h5 className="card-title">{title}</h5>
                 <p className="card-text">{description}</p>
-                <a href={readMore} className="btn btn-primary">Read More</a>
+                <a href={readMore} target="_blank" className="btn btn-primary">Read More</a>
+                {/* target='_blank' will open a new tab on new click for the link */}
             </div>
             </div>
       </div>

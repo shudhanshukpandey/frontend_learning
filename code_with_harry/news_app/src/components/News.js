@@ -223,19 +223,35 @@ export class News extends Component {
         <h2>
           NewsAppp - Top Hedlines
         </h2>
+        {/*  mapping articles item so that it becomes dynamic
+             add unique key to the after map div and return eact card with props
+             in case of functiin based component remove 'this.state'
+        */}
+
           <div className='row'>
-            <div className='col-md-4'>
+        {this.state.articles.map((element)=>{
+           return  <div className='col-md-4' key={element.url}>
+
+            <NewsItem  title={element.title} description={element.description} imageUrl={element.urlToImage} readMore={element.url}/>
+              </div>
+
+
+        })}
+            {/* <div className='col-md-4'>
 
           <NewsItem title="casper" description="casper is a ghost" imageUrl="https://www.reuters.com/resizer/MxRQHI8W78Ia0-QiffNwI1lH7Mc=/1200x628/smart/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/5RCPGPMXWVJZLPNNKC6LBHIJ7A.jpg" readMore="https://www.reuters.com/business/indias-adani-kicks-off-245-bln-share-sale-while-under-short-seller-attack-2023-01-27/"/>
-            </div>
-            <div className='col-md-4'>
+            </div> */}
+
+
+
+            {/* <div className='col-md-4'>
 
           <NewsItem title="jasper" description="casper is a ghost"/>
             </div>
             <div className='col-md-4'>
 
           <NewsItem title="nasper" description="casper is a ghost"/>
-            </div>
+            </div> */}
 
           </div>
       </div>

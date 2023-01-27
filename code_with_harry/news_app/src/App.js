@@ -1,12 +1,15 @@
 
 import './App.css';
-import React, { Component } from 'react'
+import React, { Component } from 'react'    // use rcc to generate snippet for class based component
+import NavBar from './components/NavBar';
 
 export default class App extends Component {
   name="shudhanshu"
   render() {
     return (
       <div>
+
+        <NavBar/>
         welcome first class based component {this.name}
         
       </div>

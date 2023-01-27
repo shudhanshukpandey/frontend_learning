@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'                //rcep is used
 
 export class NavBar extends Component {           // input and hr tag needs to be closed with '/'
   static propTypes = {
-
+                                                    // href="#" will cause issue change it to '/' or '/link_name'
   }
 
   render() {

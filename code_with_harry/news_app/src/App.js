@@ -2,6 +2,7 @@
 import './App.css';
 import React, { Component } from 'react'    // use rcc to generate snippet for class based component
 import NavBar from './components/NavBar';
+import News from './components/News';
 
 export default class App extends Component {
   name="shudhanshu"
@@ -11,6 +12,8 @@ export default class App extends Component {
 
         <NavBar/>
         welcome first class based component {this.name}
+
+        <News/>
         
       </div>
     )

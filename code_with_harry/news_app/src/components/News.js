@@ -208,6 +208,23 @@ export class News extends Component {
 
 
 
+  async componentDidMount(){
+
+    //an asysnk function can wait inside its own body
+    console.log("inside cdm");
+    let url="https://newsapi.org/v2/top-headlines?country=in&apiKey=8e2f3e13986e42e39850c9c1474338de";
+
+    let data= await fetch(url);    //will return a promise, will wait till await is resolved
+    
+    
+    let parsedData=await data.json();   // parsing returned promise object to json
+    console.log(parsedData)
+
+    this.setState({articles:parsedData.articles});
+
+
+  }
+
   constructor(){
     super();                            // if super not called inside a constructor it will throw a error?
     console.log("hello i am running inside a constructor")

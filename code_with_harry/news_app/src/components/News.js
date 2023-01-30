@@ -2,7 +2,21 @@ import React, { Component } from 'react'
 import NewsItem from './NewsItem'     // shift+alt+ arrow will copy current line
 import Spinner from './Spinner';
 
+import PropTypes from 'prop-types'  //importing  proptypes
+
+
 export class News extends Component {
+
+  static defaultProps={
+    country:"in",
+    catogery: "general"
+    
+  }
+
+  static propTypes={
+    country:PropTypes.string,
+    catogery: PropTypes.string,
+  }
 
   articles= [
     {
@@ -212,7 +226,7 @@ export class News extends Component {
     console.log("hello i am running inside a constructor");
 
     this.state={
-      articles: this.articles,
+      articles: [],
       loading: false,                 // loader status added
       page: 1                         // page no added
       
@@ -224,8 +238,8 @@ export class News extends Component {
   async componentDidMount(){
 
     //an asysnk function can wait inside its own body
-    console.log("inside cdm");
-    let url="https://newsapi.org/v2/top-headlines?country=in&apiKey=8e2f3e13986e42e39850c9c1474338de&page=1&pageSize=5";
+    console.log("inside cdm");                                                           //passing catogery as well
+    let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.catogery}&apiKey=8e2f3e13986e42e39850c9c1474338de&page=1&pageSize=5`;
     this.setState(
       {
         loading:true           //loader status initiated
@@ -251,7 +265,7 @@ export class News extends Component {
     {
 
 
-      let url=`https://newsapi.org/v2/top-headlines?country=in&apiKey=8e2f3e13986e42e39850c9c1474338de&page=${this.state.page+1}&pageSize=20`;
+      let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.catogery}&apiKey=8e2f3e13986e42e39850c9c1474338de&page=${this.state.page+1}&pageSize=5`;
       
       this.setState(
         {
@@ -282,7 +296,7 @@ export class News extends Component {
    handleprevclick=  async ()=>{             
     console.log("prev click")
 
-    let url=`https://newsapi.org/v2/top-headlines?country=in&apiKey=8e2f3e13986e42e39850c9c1474338de&page=${this.state.page-1}&pageSize=20`;
+    let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.catogery}&apiKey=8e2f3e13986e42e39850c9c1474338de&page=${this.state.page-1}&pageSize=5`;
 
     this.setState(
       {

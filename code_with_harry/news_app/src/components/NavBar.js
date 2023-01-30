@@ -21,9 +21,20 @@ export class NavBar extends Component {           // input and hr tag needs to b
         <li className="nav-item">
           <a className="nav-link active" aria-current="page" href="#">Home</a>
         </li>
-        <li className="nav-item">
-          <a className="nav-link" href="/">About</a>
-        </li>
+        <li className="nav-item"><a className="nav-link" href="/">About</a></li>
+
+        {/*adding multi catogeroies for news */}
+
+        <li className="nav-item"><a className="nav-link" href="/">business</a></li>
+        <li className="nav-item"><a className="nav-link" href="/">entertaainment</a></li>
+        <li className="nav-item"><a className="nav-link" href="/">general</a></li>
+        <li className="nav-item"><a className="nav-link" href="/">health</a></li>
+        <li className="nav-item"><a className="nav-link" href="/">science</a></li>
+        <li className="nav-item"><a className="nav-link" href="/">sports</a></li>
+        <li className="nav-item"><a className="nav-link" href="/">techonology</a></li>
+      {/* use alt+shift+ctrl + arrow */}
+
+
 
       </ul>
       <form className="d-flex" role="search">

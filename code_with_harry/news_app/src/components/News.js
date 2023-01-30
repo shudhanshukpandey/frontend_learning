@@ -206,34 +206,85 @@ export class News extends Component {
     }
   ]
 
+  constructor(){
+    super();                            // if super not called inside a constructor it will throw a error?
+    console.log("hello i am running inside a constructor");
+
+    this.state={
+      articles: this.articles,
+      loading: false,
+      page: 1
+      
+    }
+  }
+
 
 
   async componentDidMount(){
 
     //an asysnk function can wait inside its own body
     console.log("inside cdm");
-    let url="https://newsapi.org/v2/top-headlines?country=in&apiKey=8e2f3e13986e42e39850c9c1474338de";
+    let url="https://newsapi.org/v2/top-headlines?country=in&apiKey=8e2f3e13986e42e39850c9c1474338de&page=1";
 
     let data= await fetch(url);    //will return a promise, will wait till await is resolved
     
     
     let parsedData=await data.json();   // parsing returned promise object to json
-    console.log(parsedData)
+    console.log(parsedData);
 
-    this.setState({articles:parsedData.articles});
+    this.setState({articles:parsedData.articles,totalArticles:parsedData.totalResults});
 
 
   }
+   handlenextclick= async()=>{
+    console.log("next click")
+    if(this.state.page+1 > Math.ceil(this.state.totalArticles/20))
+    {
 
-  constructor(){
-    super();                            // if super not called inside a constructor it will throw a error?
-    console.log("hello i am running inside a constructor")
-
-    this.state={
-      articles: this.articles
-      
     }
+    else{
+
+      let url=`https://newsapi.org/v2/top-headlines?country=in&apiKey=8e2f3e13986e42e39850c9c1474338de&page=${this.state.page+1}&pageSize=20`;
+  
+      let data= await fetch(url);    //will return a promise, will wait till await is resolved
+      
+      
+      let parsedData=await data.json();   // parsing returned promise object to json
+      console.log(parsedData);
+  
+      this.setState({});
+  
+      this.setState(
+        {
+          page:this.state.page+1,
+          articles:parsedData.articles
+        }
+      )
+    }
+
   }
+
+   handleprevclick=  async ()=>{             
+    console.log("prev click")
+
+    let url=`https://newsapi.org/v2/top-headlines?country=in&apiKey=8e2f3e13986e42e39850c9c1474338de&page=${this.state.page-1}&pageSize=20`;
+
+    let data= await fetch(url);    //will return a promise, will wait till await is resolved
+    
+    
+    let parsedData=await data.json();   // parsing returned promise object to json
+    console.log(parsedData);
+
+    this.setState({});
+
+    this.setState(
+      {
+        page:this.state.page-1,
+        articles:parsedData.articles
+      }
+    )
+  }
+  
   render() {
     return (
       <div className='container my-3'>
@@ -269,6 +320,11 @@ export class News extends Component {
 
           <NewsItem title="nasper" description="casper is a ghost"/>
             </div> */}
+
+          </div>
+          <div className='container d-flex justify-content-between'>
+          <button disabled={this.state.page<=1} type="button" className="btn btn-dark" onClick={this.handleprevclick}>prev</button>
+          <button type="button" className="btn btn-dark" onClick={this.handlenextclick}>next</button>
 
           </div>
       </div>

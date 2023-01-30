@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import NewsItem from './NewsItem'     // shift+alt+ arrow will copy current line
+import Spinner from './Spinner';
 
 export class News extends Component {
 
@@ -212,8 +213,8 @@ export class News extends Component {
 
     this.state={
       articles: this.articles,
-      loading: false,
-      page: 1
+      loading: false,                 // loader status added
+      page: 1                         // page no added
       
     }
   }
@@ -224,7 +225,13 @@ export class News extends Component {
 
     //an asysnk function can wait inside its own body
     console.log("inside cdm");
-    let url="https://newsapi.org/v2/top-headlines?country=in&apiKey=8e2f3e13986e42e39850c9c1474338de&page=1";
+    let url="https://newsapi.org/v2/top-headlines?country=in&apiKey=8e2f3e13986e42e39850c9c1474338de&page=1&pageSize=5";
+    this.setState(
+      {
+        loading:true           //loader status initiated
+      }
+    )
+
 
     let data= await fetch(url);    //will return a promise, will wait till await is resolved
     
@@ -232,20 +239,27 @@ export class News extends Component {
     let parsedData=await data.json();   // parsing returned promise object to json
     console.log(parsedData);
 
-    this.setState({articles:parsedData.articles,totalArticles:parsedData.totalResults});
+    this.setState({articles:parsedData.articles,
+                  totalArticles:parsedData.totalResults,
+                loading:false});              //loader status updated as per data fectging
 
 
   }
    handlenextclick= async()=>{
     console.log("next click")
-    if(this.state.page+1 > Math.ceil(this.state.totalArticles/20))
+    if(!(this.state.page+1 > Math.ceil(this.state.totalArticles/20)))
     {
 
-    }
-    else{
 
       let url=`https://newsapi.org/v2/top-headlines?country=in&apiKey=8e2f3e13986e42e39850c9c1474338de&page=${this.state.page+1}&pageSize=20`;
-  
+      
+      this.setState(
+        {
+          loading:true
+        }
+      )
+
+
       let data= await fetch(url);    //will return a promise, will wait till await is resolved
       
       
@@ -257,7 +271,8 @@ export class News extends Component {
       this.setState(
         {
           page:this.state.page+1,
-          articles:parsedData.articles
+          articles:parsedData.articles,
+          loading:false
         }
       )
     }
@@ -268,6 +283,12 @@ export class News extends Component {
     console.log("prev click")
 
     let url=`https://newsapi.org/v2/top-headlines?country=in&apiKey=8e2f3e13986e42e39850c9c1474338de&page=${this.state.page-1}&pageSize=20`;
+
+    this.setState(
+      {
+        loading:true
+      }
+    )
 
     let data= await fetch(url);    //will return a promise, will wait till await is resolved
     
@@ -280,7 +301,8 @@ export class News extends Component {
     this.setState(
       {
         page:this.state.page-1,
-        articles:parsedData.articles
+        articles:parsedData.articles,
+        loading:false
       }
     )
   }
@@ -288,16 +310,19 @@ export class News extends Component {
   render() {
     return (
       <div className='container my-3'>
-        <h2>
-          NewsAppp - Top Hedlines
-        </h2>
+        
+        <h1 className='text-center'>
+          NewsAppp - Top Hedlines(India)
+        </h1>
+        {/* loader added and activating based on its staus */}
+        {this.state.loading && <Spinner/>}
         {/*  mapping articles item so that it becomes dynamic
              add unique key to the after map div and return eact card with props
              in case of functiin based component remove 'this.state'
         */}
 
           <div className='row'>
-        {this.state.articles.map((element)=>{
+        {!this.state.loading && this.state.articles.map((element)=>{
            return  <div className='col-md-4' key={element.url}>
 
             <NewsItem  title={element.title} description={element.description} imageUrl={element.urlToImage} readMore={element.url}/>
@@ -324,8 +349,8 @@ export class News extends Component {
           </div>
           <div className='container d-flex justify-content-between'>
           <button disabled={this.state.page<=1} type="button" className="btn btn-dark" onClick={this.handleprevclick}>prev</button>
-          <button type="button" className="btn btn-dark" onClick={this.handlenextclick}>next</button>
-
+          <button disabled={this.state.page+1 > Math.ceil(this.state.totalArticles/20)} type="button" className="btn btn-dark" onClick={this.handlenextclick}>next</button>
+              {/* button diasble login implemented for next */}
           </div>
       </div>
     )

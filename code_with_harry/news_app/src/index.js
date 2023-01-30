@@ -9,6 +9,7 @@ import { BrowserRouter } from 'react-router-dom';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    {/* browserrouter are necessary to init react router dom */}
     <BrowserRouter>
       <App />
     </BrowserRouter>

@@ -221,9 +221,10 @@ export class News extends Component {
     }
   ]
 
-  constructor(){
-    super();                            // if super not called inside a constructor it will throw a error?
+  constructor(props){
+    super(props);                            // if super not called inside a constructor it will throw a error?
     console.log("hello i am running inside a constructor");
+    console.log("api key "+process.env.REACT_APP_NEWS_API_KEY)              // env variable should start with REACT_APP_ otherwise it will not work
 
     this.state={
       articles: [],
@@ -231,7 +232,8 @@ export class News extends Component {
       page: 1                         // page no added
       
     }
-  }
+    document.title=`NewsMonkey-${this.props.catogery                   //changing documnet title based on catogery
+}`  }
 
 
 
@@ -326,7 +328,10 @@ export class News extends Component {
       <div className='container my-3'>
         
         <h1 className='text-center'>
-          NewsAppp - Top Hedlines(India)
+          NewsAppp - Top {this.props.catogery} Hedlines(India)
+          {
+            /* change page heading based on catogery */
+          }
         </h1>
         {/* loader added and activating based on its staus */}
         {this.state.loading && <Spinner/>}

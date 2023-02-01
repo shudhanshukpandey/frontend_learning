@@ -261,6 +261,7 @@ export class News extends Component {
 
 
   }
+  
    handlenextclick= async()=>{
     console.log("next click")
     if(!(this.state.page+1 > Math.ceil(this.state.totalArticles/20)))

@@ -4,7 +4,7 @@ import Loader from "./Skateboarding.gif"
 
 export default function Spinner() {
   return (
-    <div className="text-centre">
+    <div className="centre">
         <img src={Loader} alt="Loading"/>
     </div>
   )

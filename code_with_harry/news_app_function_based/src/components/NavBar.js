@@ -22,7 +22,7 @@ export default function NavBar() {
         <li className="nav-item"><NavLink className="nav-link" to="/health">Health</NavLink></li>
         <li className="nav-item"><NavLink className="nav-link" to="/science">Science</NavLink></li>
         <li className="nav-item"><NavLink className="nav-link" to="/sports">Sports</NavLink></li>
-        <li className="nav-item"><NavLink className="nav-link" to="/tect">Tech</NavLink></li>
+        <li className="nav-item"><NavLink className="nav-link" to="/tech">Tech</NavLink></li>
         <li className="nav-item"><NavLink className="nav-link" to="/about">About Us</NavLink></li>
         
       </ul>

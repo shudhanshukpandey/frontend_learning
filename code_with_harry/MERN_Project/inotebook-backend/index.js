@@ -5,6 +5,8 @@ connectToMongo()
 const app = express()
 const port = 3000
 
+app.use(express.json())                           // is a middleware to use req.body
+
 app.use("/api/auth",require("./routes/auth"))    //works similar to flask register_blueprint
 app.use("/api/notes",require("./routes/notes"))
 

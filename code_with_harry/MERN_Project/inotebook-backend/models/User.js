@@ -1,4 +1,6 @@
 const mongoose=require("mongoose")              //creating user schema
+const {Schema}=mongoose
+
 
 const UserSchema= new Schema({
     name:{

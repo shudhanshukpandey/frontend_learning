@@ -8,3 +8,5 @@
 >if globally not installed then will may not recognoise
 >solution 1> have to install globally (npm install -g nodemon)
           2> run using npx (npx nodemon file_path.js)
+
+> Model components should be titlized (e.g:Notes.js)

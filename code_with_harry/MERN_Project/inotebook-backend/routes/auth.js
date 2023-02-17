@@ -3,6 +3,12 @@ const express= require("express");
 
 const User=require("../models/User");
 
+const bcrypt=require("bcryptjs");
+
+const jwt=require("jsonwebtoken");
+
+const JWT_SECRET="JAIbhawani";
+
 const router=express.Router();     //works similar to blueprint
 
 
@@ -54,7 +60,7 @@ router.post("/sign_up_validate",                    //validation api
     body('email').isEmail(),
 ]
 
-,(req,res)=>{
+, async (req,res)=>{
     const errors=validationResult(req);
     if (!errors.isEmpty())
     {
@@ -63,10 +69,14 @@ router.post("/sign_up_validate",                    //validation api
         })
     }
 
-    User.create(
+    const salt=await bcrypt.genSalt(10)               //generating salt for password of round 10
+
+    const secPass= await bcrypt.hash(req.body.password,salt)
+
+    user=await User.create(
         {
             name:req.body.name,
-            password:req.body.password,
+            password:secPass,
             email:req.body.email
         }
     ).then(user=>res.json(user)).catch(err=>{
